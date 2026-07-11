@@ -294,7 +294,11 @@ Future improvements:
 
 Mechatronics Engineering Student
 
-## Contact Information For more details, feel free to contact me: - **Email:** khlifimedkhalil@gmail.com - **LinkedIn:** [Khlifi Med Khalil](https://www.linkedin.com/in/khlifi-medkhalil/)
+## Contact Information For more details,
+feel free to contact me:
+- **Email:** khlifimedkhalil@gmail.com -
+- **LinkedIn:** [Khlifi Med Khalil](https://www.linkedin.com/in/khlifi-medkhalil/)
+  
 ---
 
 # ⭐ Project Highlights
