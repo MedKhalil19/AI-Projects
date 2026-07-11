@@ -271,7 +271,7 @@ Truck: 2
 A complete demonstration video showing the project execution is available on LinkedIn:
 
 🔗 **Project Demo:**  
-https://www.linkedin.com/feed/update/urn:li:activity:7261845336736808963/
+[objects_counting's LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7261845336736808963/)
 
 ---
 
@@ -294,11 +294,7 @@ Future improvements:
 
 Mechatronics Engineering Student
 
-📧 Email: khlifimedkhalil@gmail.com
-
-🔗 LinkedIn:  
-https://www.linkedin.com/in/khlifi-medkhalil/
-
+## Contact Information For more details, feel free to contact me: - **Email:** khlifimedkhalil@gmail.com - **LinkedIn:** [Khlifi Med Khalil](https://www.linkedin.com/in/khlifi-medkhalil/)
 ---
 
 # ⭐ Project Highlights
