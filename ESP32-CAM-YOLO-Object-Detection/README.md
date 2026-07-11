@@ -247,4 +247,23 @@ Train custom YOLO models for specific objects.
 ## 👨‍💻 Author
 Med Khalil Khlifi
 
-Required files:
+Interested in:
+
+Artificial Intelligence
+Computer Vision
+Embedded Systems
+Robotics
+
+---
+
+##⭐ Project Highlights
+
+This project demonstrates the integration of:
+
+Embedded systems
+Wireless communication
+Deep Learning
+Computer Vision
+Object Detection
+
+to create an intelligent camera system combining hardware and AI.
