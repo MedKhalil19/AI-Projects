@@ -6,14 +6,6 @@ Welcome to my Artificial Intelligence and Computer Vision repository, where I sh
 
 This repository contains different AI-based applications focused on creating intelligent vision systems capable of detecting, tracking, counting, and recognizing objects in real-world scenarios.
 
-The projects combine software, deep learning models, and hardware integration to explore applications in:
-
-- Computer Vision
-- Robotics
-- Embedded Systems
-- Smart Automation
-- Intelligent Monitoring Systems
-
 ---
 
 # 🚀 Projects Included
