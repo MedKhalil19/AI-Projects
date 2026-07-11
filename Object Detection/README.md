@@ -1,185 +1,275 @@
-# 🎯 YOLOv8 Interactive Object Tracking with Spotlight View
+# 🎯 YOLOv8 Interactive Object Tracking with Spotlight Visualization
 
 ## 📌 Overview
 
 This project implements an **interactive object tracking system** using **YOLOv8 and ByteTrack**.
 
-Unlike traditional object detection systems that only identify objects in each frame, this project allows the user to **select any detected object by clicking on it** and continuously track it throughout the video.
+The system combines object detection, multi-object tracking, and user interaction to create a smart vision application where the user can select any detected object and automatically follow it throughout a video.
 
-After selecting an object, the system creates a real-time **spotlight view** by displaying a cropped close-up of the tracked object while maintaining the complete scene visibility.
+After selecting an object by clicking on it, the system creates a **real-time spotlight window** by displaying a cropped view of the selected target while keeping the complete scene visible.
+
+This approach can be useful for:
+
+- Smart surveillance systems
+- Robotics vision applications
+- Traffic monitoring
+- Human-object interaction
+- Intelligent camera systems
 
 ---
 
 # ✨ Features
 
-✅ Real-time object detection using YOLOv8  
-✅ Multi-object tracking with ByteTrack  
-✅ Click-to-select object interaction  
-✅ Persistent object IDs across frames  
-✅ Live cropped spotlight overlay  
-✅ Supports video input  
-✅ Automatic output video saving  
-✅ CPU compatible  
-✅ Works with different YOLOv8 models
+✅ YOLOv8 object detection  
+✅ ByteTrack multi-object tracking  
+✅ Click-to-select object tracking  
+✅ Persistent object IDs  
+✅ Live spotlight crop visualization  
+✅ Video processing and output generation  
+✅ Supports custom YOLOv8 models  
+✅ Supports video files and webcam input  
+✅ CPU compatible
 
 ---
 
-# 🧠 System Architecture
+# 🧠 How It Works
 
-The processing pipeline:
+The system follows this pipeline:
 
 ```
-             Input Video
-                  |
-                  ↓
-        ┌──────────────────┐
-        │     YOLOv8       │
-        │ Object Detection │
-        └──────────────────┘
-                  |
-                  ↓
-        ┌──────────────────┐
-        │    ByteTrack     │
-        │ Object Tracking  │
-        └──────────────────┘
-                  |
-                  ↓
-          Assign Object IDs
-                  |
-                  ↓
-        User Click Selection
-                  |
-                  ↓
-        Crop Selected Object
-                  |
-                  ↓
-        Spotlight Overlay
-                  |
-                  ↓
-          Output Video
+              Input Source
+           (Video / Webcam)
+                    |
+                    ↓
+          ┌─────────────────┐
+          │     YOLOv8      │
+          │ Object Detection│
+          └─────────────────┘
+                    |
+                    ↓
+          ┌─────────────────┐
+          │    ByteTrack    │
+          │ Object Tracking │
+          └─────────────────┘
+                    |
+                    ↓
+             Assign IDs
+                    |
+                    ↓
+          User selects object
+              by clicking
+                    |
+                    ↓
+          Crop selected object
+                    |
+                    ↓
+          Spotlight Overlay
+                    |
+                    ↓
+              Output Video
 ```
 
 ---
 
-# 🔍 How It Works
+# 🔍 Object Detection
 
-## 1. Object Detection
+The detection stage uses the Ultralytics YOLOv8 model.
 
-The system uses the Ultralytics YOLOv8 model:
+Default model:
 
 ```
 yolov8n.pt
 ```
 
-YOLO detects objects in every frame and provides:
+YOLOv8 provides:
 
-- Bounding boxes
-- Object classes
-- Confidence scores
+- Object class
+- Bounding box coordinates
+- Confidence score
 
-Example detected objects:
-
-```
-Person
-Car
-Bus
-Dog
-Bicycle
-...
-```
-
-The model can be replaced with other YOLOv8 versions:
-
-```
-yolov8n.pt
-yolov8s.pt
-yolov8m.pt
-yolov8l.pt
-yolov8x.pt
-```
-
-depending on the required speed and accuracy.
-
----
-
-# 🎯 Interactive Object Selection
-
-The user can select an object directly from the video window:
-
-1. Run the program.
-2. Click on any detected object.
-3. The system stores the object's tracking ID.
-4. The selected object remains highlighted.
+The model can detect multiple objects simultaneously.
 
 Example:
 
 ```
-Person ID: 3
-Car ID: 7
-Dog ID: 12
+Person ID: 1
+Car ID: 2
+Dog ID: 3
 ```
-
-The selected object is tracked even when it moves through the scene.
 
 ---
 
-# 🚀 Object Tracking
+# 🚀 Object Tracking with ByteTrack
 
-Tracking is performed using:
-
-```
-ByteTrack
-```
-
-ByteTrack provides:
-
-- Stable object identities.
-- Reduced ID switching.
-- Efficient real-time tracking.
-
-The tracker configuration:
+After detection, objects are tracked using:
 
 ```
 bytetrack.yaml
 ```
 
-is included with Ultralytics YOLO.
+ByteTrack allows the system to maintain the same identity of an object between frames.
+
+Example:
+
+Frame 1:
+
+```
+Person ID: 5
+```
+
+Frame 100:
+
+```
+Person ID: 5
+```
+
+The object keeps the same tracking ID even while moving.
 
 ---
 
-# 🔎 Spotlight Feature
+# 🎯 Interactive Spotlight Feature
 
-After selecting an object, the system:
+The main feature of this project is interactive object selection.
 
-1. Extracts the object's bounding box.
-2. Creates a cropped image.
-3. Resizes it while maintaining aspect ratio.
-4. Displays it in the top corner of the video.
+Workflow:
 
-The original scene remains visible while providing a zoomed view of the selected target.
+1. Run the application.
+2. Multiple objects are detected and tracked.
+3. Click on the desired object.
+4. The system saves its tracking ID.
+5. The object is continuously followed.
+6. A zoomed crop appears in the corner of the video.
+
+Example:
+
+```
++--------------------------------+
+|  Spotlight                     |
+|  +-------------+               |
+|  | Selected    |               |
+|  | Object Crop |               |
+|  +-------------+               |
+|                                |
+|      Full Video Scene          |
+|                                |
++--------------------------------+
+```
 
 ---
 
-# 🎥 Controls
+# 🎥 Input Modes
 
-| Key / Action | Function |
-|-|-|
-| Mouse Left Click | Select an object |
-| `c` | Clear current selection |
-| `q` | Exit program |
+## 1️⃣ Video File Mode
+
+By default, the system processes a video file:
+
+```python
+source="video.mp4"
+```
+
+Example:
+
+```python
+tracker = YOLOSpotlight(
+    model="yolov8n.pt",
+    source="video.mp4",
+    output="YOLO_spotlight.mp4"
+)
+```
+
+The processed result is saved as:
+
+```
+YOLO_spotlight.mp4
+```
+
+---
+
+## 2️⃣ Real-Time Webcam Mode
+
+The same system can work with a live camera.
+
+Replace:
+
+```python
+source="video.mp4"
+```
+
+with:
+
+```python
+source=0
+```
+
+Example:
+
+```python
+tracker = YOLOSpotlight(
+    model="yolov8n.pt",
+    source=0,
+    output="webcam_result.mp4"
+)
+```
+
+Explanation:
+
+```
+0 → Default webcam
+1 → Second camera
+2 → Third camera
+```
+
+This allows real-time object detection and tracking directly from a camera.
+
+---
+
+# 🎬 Results
+
+Example output:
+
+```
+Input:
+video.mp4
+
+Processing:
+YOLOv8 Detection
++
+ByteTrack Tracking
++
+Interactive Spotlight
+
+Output:
+YOLO_spotlight.mp4
+```
+
+## Demo Result
+
+(Add your result video here)
+
+Example:
+
+```
+![YOLOv8 Spotlight Demo](results/demo.gif)
+```
+
+or upload your video:
+
+```
+results/YOLO_spotlight.mp4
+```
 
 ---
 
 # 🛠️ Technologies Used
 
-| Technology | Purpose |
+| Technology | Usage |
 |-|-|
 | Python | Main programming language |
 | OpenCV | Video processing and visualization |
 | YOLOv8 | Object detection |
 | Ultralytics | Deep learning framework |
-| ByteTrack | Object tracking |
-| NumPy | Numerical operations |
+| ByteTrack | Multi-object tracking |
+| NumPy | Data processing |
 
 ---
 
@@ -187,12 +277,18 @@ The original scene remains visible while providing a zoomed view of the selected
 
 ```
 YOLOv8-Spotlight-Tracker/
+
 │
 ├── main.py
 ├── yolov8n.pt
 ├── bytetrack.yaml
-├── video.mp4
-├── YOLO_spotlight.mp4
+│
+├── videos/
+│   └── video.mp4
+│
+├── results/
+│   └── YOLO_spotlight.mp4
+│
 └── README.md
 ```
 
@@ -200,7 +296,7 @@ YOLOv8-Spotlight-Tracker/
 
 # ⚙️ Installation
 
-Clone the repository:
+Clone repository:
 
 ```bash
 git clone https://github.com/yourusername/YOLOv8-Spotlight-Tracker.git
@@ -212,7 +308,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Required libraries:
+Required packages:
 
 ```
 opencv-python
@@ -222,68 +318,54 @@ ultralytics
 
 ---
 
-# ▶️ Usage
+# ▶️ Run The Project
 
-Run:
+Execute:
 
 ```bash
 python main.py
 ```
 
-The program starts processing:
+Controls:
 
-```
-video.mp4
-```
-
-and generates:
-
-```
-YOLO_spotlight.mp4
-```
-
-with:
-
-- Detection boxes
-- Tracking IDs
-- Selected object spotlight
+| Action | Function |
+|-|-|
+| Left Mouse Click | Select object |
+| C | Clear selection |
+| Q | Exit |
 
 ---
 
-# 🔧 Configuration
+# 🔧 Customization
 
-The tracker can be customized:
+You can change the YOLO model:
 
 ```python
-tracker = YOLOSpotlight(
-    model="yolov8n.pt",
-    source="video.mp4",
-    output="YOLO_spotlight.mp4"
-)
+model="yolov8n.pt"
 ```
 
-Parameters:
+Examples:
 
-| Parameter | Description |
-|-|-|
-| model | YOLOv8 model file |
-| source | Input video |
-| output | Saved output video |
-| conf | Detection confidence threshold |
-| tracker | Tracking algorithm |
+```
+yolov8n.pt  → Faster, lightweight
+yolov8s.pt  → Better accuracy
+yolov8m.pt  → Balanced
+yolov8l.pt  → High accuracy
+yolov8x.pt  → Maximum accuracy
+```
 
 ---
 
-# 📈 Possible Improvements
+# 🚀 Future Improvements
 
-Future improvements:
+Possible improvements:
 
-- Add webcam real-time tracking.
-- Add multiple selected objects.
-- Add automatic object following with camera movement.
-- Add object counting and analytics.
-- Integrate segmentation models (YOLOv8-seg).
-- Deploy on embedded AI platforms.
+- Real-time webcam optimization
+- Multiple object spotlight selection
+- Object counting integration
+- Automatic camera following
+- Object segmentation using YOLOv8-seg
+- Deployment on embedded AI platforms
 
 ---
 
@@ -297,7 +379,7 @@ Mechatronics Engineering Student
 
 # ⭐ Project Highlights
 
-This project demonstrates the combination of:
+This project demonstrates the integration of:
 
 - Artificial Intelligence
 - Computer Vision
@@ -305,4 +387,4 @@ This project demonstrates the combination of:
 - Object Tracking
 - Human-Computer Interaction
 
-to create an interactive real-world vision system.
+to build an interactive intelligent vision system.
